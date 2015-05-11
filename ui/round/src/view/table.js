@@ -8,6 +8,7 @@ var opposite = chessground.util.opposite;
 var xhr = require('../xhr');
 var clockView = require('../clock/view');
 var renderCorrespondenceClock = require('../correspondenceClock/view');
+var renderKeyboardNavigation = require('../keyboardNavigation/view');
 var renderReplay = require('./replay');
 var renderStatus = require('./status');
 var renderUser = require('game').view.user;
@@ -85,6 +86,7 @@ function renderTablePlay(ctrl) {
   return [
     renderReplay(ctrl),
     m('div.control.icons', [
+      renderKeyboardNavigation(ctrl),
       button.standard(ctrl, game.abortable, 'L', 'abortGame', 'abort'),
       game.takebackable(ctrl.data) ? m('button', {
         class: 'button hint--bottom takeback-yes',

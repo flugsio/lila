@@ -1462,6 +1462,18 @@ div.under_chat .watchtv {
 #chat.hidden form {
   opacity: 0;
 }
+div.keyboard_navigation {
+  display: inline-block;
+  position: relative;
+}
+div.keyboard_navigation input {
+  border: 1px solid #ccc;
+  padding: 0px 2px 0px 2px;
+  width: 34px;
+  font-size: 14px;
+  margin: 0 3px;
+  border-radius: 2px;
+}
 div.game_tournament {
   max-height: 300px;
   overflow: hidden;
