@@ -36,7 +36,8 @@ case class HookConfig(
     uid: String,
     user: Option[User],
     sid: Option[String],
-    blocking: Set[String]): Either[Hook, Option[Seek]] = timeMode match {
+    blocking: Set[String],
+    crybaby: Boolean): Either[Hook, Option[Seek]] = timeMode match {
     case TimeMode.RealTime => Left(Hook.make(
       uid = uid,
       variant = variant,
@@ -46,6 +47,7 @@ case class HookConfig(
       color = color.name,
       user = user,
       blocking = blocking,
+      crybaby = crybaby,
       sid = sid,
       ratingRange = ratingRange))
     case _ => Right(user map { u =>

@@ -21,7 +21,11 @@ function renderHook(ctrl, hook) {
     hook.clock, [m('span', {
       class: 'varicon',
       'data-icon': hook.perf.icon
-    }), ctrl.trans(hook.mode === 1 ? 'rated' : 'casual')]
+    }), ctrl.trans(hook.mode === 1 ? 'rated' : 'casual')],
+    hook.crybaby ? m('span', {
+      class: 'is crybaby',
+      title: 'Has unfinished real time game with their turn.'
+    }) : null
   ]));
 };
 
@@ -88,7 +92,8 @@ module.exports = {
             }),
             onclick: util.partial(ctrl.setSort, 'time')
           }, [m('i.is'), ctrl.trans('time')]),
-          m('th', ctrl.trans('mode'))
+          m('th', ctrl.trans('mode')),
+          m('th')
         ])
       ),
       m('tbody', {

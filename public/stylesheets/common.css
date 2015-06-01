@@ -125,6 +125,9 @@ body.blind_mode [data-icon]::before {
 .is.color-icon.random::before {
   content: "l";
 }
+.is.crybaby::before {
+  content: "j";
+}
 @font-face {
   font-family: 'ChessSansPiratf';
   src: url("../fonts/ChessSansPiratf.eot");

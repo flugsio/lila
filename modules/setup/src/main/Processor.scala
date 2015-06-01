@@ -53,10 +53,11 @@ private[setup] final class Processor(
     configBase: HookConfig,
     uid: String,
     sid: Option[String],
-    blocking: Set[String])(implicit ctx: UserContext): Fu[String] = {
+    blocking: Set[String],
+    crybaby: Boolean)(implicit ctx: UserContext): Fu[String] = {
     val config = configBase.fixColor
     saveConfig(_ withHook config) >> {
-      config.hook(uid, ctx.me, sid, blocking) match {
+      config.hook(uid, ctx.me, sid, blocking, crybaby) match {
         case Left(hook) => fuccess {
           lobby ! AddHook(hook)
           hook.id

@@ -151,6 +151,11 @@ object GameRepo {
       _.sortBy(_.updatedAt).lastOption flatMap { Pov(_, user) }
     }
 
+  def hasWaitingRealTime(user: User): Fu[Boolean] =
+    $find($query(Query.nowPlaying(user.id) ++ Query.clock(true) ++ Query.noAi), 10) map { games =>
+      games flatMap { Pov(_, user) } exists { _.isMyTurn }
+    }
+
   def setTv(id: ID) {
     $update.fieldUnchecked(id, F.tvAt, $date(DateTime.now))
   }

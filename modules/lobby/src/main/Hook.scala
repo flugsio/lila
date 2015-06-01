@@ -22,6 +22,7 @@ case class Hook(
     color: String,
     user: Option[LobbyUser],
     ratingRange: String,
+    crybaby: Boolean,
     createdAt: DateTime) {
 
   val realColor = Color orDefault color
@@ -70,7 +71,8 @@ case class Hook(
     "color" -> chess.Color(color).??(_.name),
     "perf" -> Json.obj(
       "icon" -> perfType.map(_.iconChar.toString),
-      "name" -> perfType.map(_.name))
+      "name" -> perfType.map(_.name)),
+    "crybaby" -> crybaby
   )
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
@@ -92,7 +94,8 @@ object Hook {
     user: Option[User],
     sid: Option[String],
     ratingRange: RatingRange,
-    blocking: Set[String]): Hook = new Hook(
+    blocking: Set[String],
+    crybaby: Boolean): Hook = new Hook(
     id = Random nextStringUppercase idSize,
     uid = uid,
     variant = variant.id,
@@ -103,5 +106,6 @@ object Hook {
     user = user map { LobbyUser.make(_, blocking) },
     sid = sid,
     ratingRange = ratingRange.toString,
+    crybaby = crybaby,
     createdAt = DateTime.now)
 }

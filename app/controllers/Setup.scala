@@ -111,9 +111,12 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
           html = BadRequest(err.errorsAsJson.toString).fuccess,
           api = _ => BadRequest(err.errorsAsJson).fuccess),
         preConfig => (ctx.userId ?? Env.relation.api.blocking) zip
+          (ctx.userId ?? UserRepo.named flatMap {
+            _ ?? GameRepo.hasWaitingRealTime
+          }) zip
           mobileHookAllowAnon(preConfig) flatMap {
-            case (blocking, config) =>
-              env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse recover {
+            case ((blocking, crybaby), config) =>
+              env.processor.hook(config, uid, HTTPRequest sid req, blocking, crybaby) map hookResponse recover {
                 case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
               }
           }
@@ -128,7 +131,8 @@ object Setup extends LilaController with TheftPrevention with play.api.http.Cont
           _.fold(config)(config.updateFrom)
         } flatMap { config =>
           (ctx.userId ?? Env.relation.api.blocking) flatMap { blocking =>
-            env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking) map hookResponse recover {
+            // TODO
+            env.processor.hook(config, uid, HTTPRequest sid ctx.req, blocking, false) map hookResponse recover {
               case e: IllegalArgumentException => BadRequest(Json.obj("error" -> e.getMessage)) as JSON
             }
           }

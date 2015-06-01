@@ -12,7 +12,8 @@ private[lobby] case class LobbyUser(
   engine: Boolean,
   booster: Boolean,
   ratingMap: Map[String, Int],
-  blocking: Set[String]) {
+  blocking: Set[String],
+  crybaby: Boolean) {
   def lame = engine || booster
 }
 
@@ -25,7 +26,8 @@ private[lobby] object LobbyUser {
     engine = user.engine,
     booster = user.booster,
     ratingMap = user.perfs.ratingMap,
-    blocking = blocking)
+    blocking = blocking,
+    crybaby = user.booster)
 }
 
 private[lobby] case class Member(
