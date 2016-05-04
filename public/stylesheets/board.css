@@ -489,6 +489,13 @@ div.dont_touch {
   transform: none;
   -webkit-transform: none;
 }
+
+/* break out promotion css to a common base? */
+#promotion_choice.drop_selection square:hover {
+  border-radius: 20% 20% 20% 20%;
+  z-index: 5;
+}
+
 div.table_wrap {
   flex: 0 1 auto;
   width: 242px;

@@ -3,6 +3,7 @@ var perf = require('game').perf;
 var chessground = require('chessground');
 var renderTable = require('./table');
 var renderPromotion = require('../promotion').view;
+var renderDropSelection = require('../dropSelection').view;
 var mod = require('game').view.mod;
 var button = require('./button');
 var blind = require('../blind');
@@ -80,6 +81,7 @@ function visualBoard(ctrl) {
       }
     }, chessground.view(ctrl.chessground)),
     renderPromotion(ctrl),
+    renderDropSelection(ctrl),
     renderVariantReminder(ctrl)
   ]);
 }

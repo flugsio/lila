@@ -8,6 +8,7 @@ var ground = require('./ground');
 var socket = require('./socket');
 var title = require('./title');
 var promotion = require('./promotion');
+var dropSelection = require('./dropSelection');
 var hold = require('./hold');
 var blur = require('./blur');
 var init = require('./init');
@@ -58,7 +59,8 @@ module.exports = function(opts) {
       hold.register(this.socket, meta.holdTime, this.vm.ply);
       if (this.vm.ply > 12 && this.vm.ply <= 14) hold.find(this.vm.element, this.data);
     }
-    if (!promotion.start(this, orig, dest, meta.premove))
+    if (!promotion.start(this, orig, dest, meta.premove) &&
+	!dropSelection.start(this, orig, dest, meta.premove))
       this.sendMove(orig, dest, false, meta.premove);
   }.bind(this);
 
